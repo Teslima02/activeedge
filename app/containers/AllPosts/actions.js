@@ -111,7 +111,6 @@ export function updatePostError(data) {
 }
 
 export function deletePost(data) {
-  console.log(data, 'data')
   return {
     type: DELETE_POST,
     payload: data,
