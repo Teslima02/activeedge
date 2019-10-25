@@ -3,11 +3,15 @@ import {
   GET_ALL_ARTISTS,
   GET_ALL_ARTISTS_SUCCESS,
   GET_ALL_ARTISTS_ERROR,
+  GET_ALL_ARTIST_ALBUMS,
+  GET_ALL_ARTIST_ALBUMS_SUCCESS,
+  GET_ALL_ARTIST_ALBUMS_ERROR,
 } from './constants';
 
 // The initial state of the App
 export const initialState = {
   getAllArtists: [],
+  artistAlbums: [],
   loading: false,
   error: false,
 };
@@ -29,10 +33,31 @@ const homeReducer = (state = initialState, action) =>
           loading: false,
           error: false,
           getAllArtists: action.payload,
-          // draft: { 'draft.getAllPosts': action.payload },
         };
       }
       case GET_ALL_ARTISTS_ERROR: {
+        return {
+          ...state,
+          loading: false,
+          error: false,
+        };
+      }
+      case GET_ALL_ARTIST_ALBUMS: {
+        return {
+          ...state,
+          loading: true,
+          error: false,
+        };
+      }
+      case GET_ALL_ARTIST_ALBUMS_SUCCESS: {
+        return {
+          ...state,
+          loading: false,
+          error: false,
+          getArtistAlbums: action.payload,
+        };
+      }
+      case GET_ALL_ARTIST_ALBUMS_ERROR: {
         return {
           ...state,
           loading: false,

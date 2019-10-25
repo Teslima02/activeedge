@@ -38,8 +38,8 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 //   },
 // }));
 
-export function AllArtistList({
-  artists,
+export function ArtistAlbums({
+  artistAlbums,
   loading,
   error,
   openEditPostDialog,
@@ -69,32 +69,16 @@ export function AllArtistList({
       },
     },
     {
-      name: 'name',
-      label: 'Name',
+      name: 'userId',
+      label: 'User Id',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'username',
-      label: 'Username',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'username',
-      label: 'Username',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'email',
-      label: 'Email',
+      name: 'title',
+      label: 'Title',
       options: {
         filter: true,
         sort: false,
@@ -107,7 +91,7 @@ export function AllArtistList({
         filter: true,
         sort: false,
         customBodyRender: value => {
-          const Post = artists.find(post => value === post.id);
+          const Post = artistAlbums.find(post => value === post.id);
 
           if (value === '') {
             return '';
@@ -131,7 +115,6 @@ export function AllArtistList({
     filterType: 'checkbox',
     responsive: 'scrollMaxHeight',
     selectableRows: 'none',
-    // customToolbar: () => <AddButton />,
   };
 
   if (loading) {
@@ -141,8 +124,8 @@ export function AllArtistList({
   return (
     <div>
       <MUIDataTable
-        title="All Artists"
-        data={artists}
+        title="Artist Albums"
+        data={artistAlbums}
         columns={columns}
         options={options}
       />
@@ -150,8 +133,8 @@ export function AllArtistList({
   );
 }
 
-AllArtistList.propTypes = {
-  artists: PropTypes.array.isRequired,
+ArtistAlbums.propTypes = {
+  artistAlbums: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   openEditPostDialog: PropTypes.object,
@@ -174,4 +157,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(AllArtistList);
+)(ArtistAlbums);

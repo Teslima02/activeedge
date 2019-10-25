@@ -31,10 +31,17 @@ const makeSelectError = () =>
     subState => subState.error,
   );
 
+const makeSelectGetArtistAlbums = () =>
+  createSelector(
+    selectHome,
+    subState => subState.getArtistAlbums,
+  );
+
 export {
   selectHome,
   makeSelectUsername,
   makeSelectGetAllArtists,
   makeSelectLoading,
   makeSelectError,
+  makeSelectGetArtistAlbums,
 };
