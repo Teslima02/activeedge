@@ -90,6 +90,29 @@ const commentsReducer = (state = initialState, action) =>
           },
         };
       }
+      case SAVE_NEW_COMMENT: {
+        return {
+          ...state,
+          loading: true,
+          error: false,
+          newPost: action.payload,
+        };
+      }
+      case SAVE_NEW_COMMENT_SUCCESS: {
+        return {
+          ...state,
+          loading: false,
+          error: false,
+          getAllPosts: state.getAllPosts.concat(action.payload),
+        };
+      }
+      case SAVE_NEW_COMMENT_ERROR: {
+        return {
+          ...state,
+          loading: false,
+          error: true,
+        };
+      }
     }
   });
 
