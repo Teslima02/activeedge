@@ -15,44 +15,37 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeStyles, FormControlLabel, Icon, List } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
-import AddButton from './AddButton';
-import { makeSelectPostDialog, makeSelectGetAllPosts } from '../selectors';
+// import AddButton from './AddButton';
 import reducer from '../reducer';
 import saga from '../saga';
-import {
-  openNewPostDialog,
-  closeNewPostDialog,
-  allPosts,
-  openEditPostDialog,
-} from '../actions';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-  dense: {
-    marginTop: 19,
-  },
-  menu: {
-    width: 200,
-  },
-}));
+// const useStyles = makeStyles(theme => ({
+//   container: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+//   textField: {
+//     marginLeft: theme.spacing(1),
+//     marginRight: theme.spacing(1),
+//     width: 200,
+//   },
+//   dense: {
+//     marginTop: 19,
+//   },
+//   menu: {
+//     width: 200,
+//   },
+// }));
 
 export function AllArtistList({
-  getAllPosts,
+  artists,
   loading,
   error,
   openEditPostDialog,
   dispatchDeletePostAction,
 }) {
-  const classes = useStyles();
+  // const classes = useStyles();
   useInjectReducer({ key: 'allPosts', reducer });
   useInjectSaga({ key: 'allPosts', saga });
 
@@ -76,16 +69,32 @@ export function AllArtistList({
       },
     },
     {
-      name: 'title',
-      label: 'Tittle',
+      name: 'name',
+      label: 'Name',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'desc',
-      label: 'Description',
+      name: 'username',
+      label: 'Username',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'username',
+      label: 'Username',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'email',
+      label: 'Email',
       options: {
         filter: true,
         sort: false,
@@ -98,7 +107,7 @@ export function AllArtistList({
         filter: true,
         sort: false,
         customBodyRender: value => {
-          const Post = getAllPosts.find(post => value === post.id);
+          const Post = artists.find(post => value === post.id);
 
           if (value === '') {
             return '';
@@ -116,38 +125,13 @@ export function AllArtistList({
         },
       },
     },
-    {
-      name: 'id',
-      label: 'Delete',
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: value => {
-          const Post = getAllPosts.find(post => value === post.id);
-
-          if (value === '') {
-            return '';
-          }
-          return (
-            <FormControlLabel
-              label="Delete"
-              control={<Icon>delete</Icon>}
-              onClick={evt => {
-                evt.stopPropagation();
-                dispatchDeletePostAction(Post);
-              }}
-            />
-          );
-        },
-      },
-    },
   ];
 
   const options = {
     filterType: 'checkbox',
     responsive: 'scrollMaxHeight',
     selectableRows: 'none',
-    customToolbar: () => <AddButton />,
+    // customToolbar: () => <AddButton />,
   };
 
   if (loading) {
@@ -158,7 +142,7 @@ export function AllArtistList({
     <div>
       <MUIDataTable
         title="All Posts"
-        data={getAllPosts}
+        data={artists}
         columns={columns}
         options={options}
       />
@@ -167,16 +151,13 @@ export function AllArtistList({
 }
 
 AllArtistList.propTypes = {
-  getAllPosts: PropTypes.array.isRequired,
+  artists: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   openEditPostDialog: PropTypes.object,
-  // openEditPostDialog: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 };
 
 const mapStateToProps = createStructuredSelector({
-  getAllPosts: makeSelectGetAllPosts(),
-  postDialog: makeSelectPostDialog(),
 });
 
 function mapDispatchToProps(dispatch) {

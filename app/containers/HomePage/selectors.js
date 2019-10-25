@@ -13,4 +13,28 @@ const makeSelectUsername = () =>
     homeState => homeState.username,
   );
 
-export { selectHome, makeSelectUsername };
+const makeSelectGetAllArtists = () =>
+  createSelector(
+    selectHome,
+    subState => subState.getAllArtists,
+  );
+
+const makeSelectLoading = () =>
+  createSelector(
+    selectHome,
+    subState => subState.loading,
+  );
+
+const makeSelectError = () =>
+  createSelector(
+    selectHome,
+    subState => subState.error,
+  );
+
+export {
+  selectHome,
+  makeSelectUsername,
+  makeSelectGetAllArtists,
+  makeSelectLoading,
+  makeSelectError,
+};

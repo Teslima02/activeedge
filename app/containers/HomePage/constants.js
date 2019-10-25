@@ -1,12 +1,29 @@
-/*
- * HomeConstants
- * Each action has a corresponding type, which the reducer knows and picks up on.
- * To avoid weird typos between the reducer and the actions, we save them as
- * constants here. We prefix them with 'yourproject/YourComponent' so we avoid
- * reducers accidentally picking up actions they shouldn't.
- *
- * Follow this format:
- * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
- */
+export const GET_ALL_ARTISTS = 'app/Home/GET_ALL_ARTISTS';
+export const GET_ALL_ARTISTS_SUCCESS = 'app/Home/GET_ALL_ARTISTS_SUCCESS';
+export const GET_ALL_ARTISTS_ERROR = 'app/Home/GET_ALL_ARTISTS_ERROR';
 
-export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
+export const GET_ALL_ARTIST_ALBUMS = 'app/Home/GET_ALL_ARTIST_ALBUMS';
+export const GET_ALL_ARTIST_ALBUMS_SUCCESS =
+  'app/Home/GET_ALL_ARTIST_ALBUMS_SUCCESS';
+export const GET_ALL_ARTIST_ALBUMS_ERROR =
+  'app/Home/GET_ALL_ARTIST_ALBUMS_ERROR';
+
+export const GET_ALBUM_PHOTO = 'app/Home/GET_ALBUM_PHOTO';
+export const GET_ALBUM_PHOTO_SUCCESS = 'app/Home/GET_ALBUM_PHOTO_SUCCESS';
+export const GET_ALBUM_PHOTO_ERROR = 'app/Home/GET_ALBUM_PHOTO_ERROR';
+
+export const GET_ALL_TWEETS = 'app/Home/GET_ALL_TWEETS';
+export const GET_ALL_TWEETS_SUCCESS = 'app/Home/GET_ALL_TWEETS_SUCCESS';
+export const GET_ALL_TWEETS_ERROR = 'app/Home/GET_ALL_TWEETS_ERROR';
+
+export const NEW_TWEET = 'app/Home/NEW_TWEET';
+export const NEW_TWEET_SUCCESS = 'app/Home/NEW_TWEET_SUCCESS';
+export const NEW_TWEET_ERROR = 'app/Home/NEW_TWEET_ERROR';
+
+export const UPDATE_TWEET = 'app/Home/UPDATE_TWEET';
+export const UPDATE_TWEET_SUCCESS = 'app/Home/UPDATE_TWEET_SUCCESS';
+export const UPDATE_TWEET_ERROR = 'app/Home/UPDATE_TWEET_ERROR';
+
+export const DELETE_TWEET = 'app/Home/DELETE_TWEET';
+export const DELETE_TWEET_SUCCESS = 'app/Home/DELETE_TWEET_SUCCESS';
+export const DELETE_TWEET_ERROR = 'app/Home/DELETE_TWEET_ERROR';

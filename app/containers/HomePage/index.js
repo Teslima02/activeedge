@@ -7,44 +7,35 @@
 import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
+import { CssBaseline, Grid } from '@material-ui/core';
+import { getAllArtists } from './actions';
 import {
-  makeSelectRepos,
+  makeSelectGetAllArtists,
   makeSelectLoading,
   makeSelectError,
-} from 'containers/App/selectors';
-import { CssBaseline, Typography, Grid } from '@material-ui/core';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { AllArtistList } from './components/AllArtistList';
 
 const key = 'home';
 
-export function HomePage({
-  username,
-  // loading,
-  // error,
-  // repos,
-  onSubmitForm,
-  // onChangeUsername,
-}) {
+export function HomePage({ allArtists, artists, loading, error }) {
   // const classes = useStyles();
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    allArtists();
   }, []);
+
+  console.log(artists, 'artists');
 
   return (
     <React.Fragment>
@@ -58,13 +49,7 @@ export function HomePage({
       </Helmet>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} md={12}>
-          <AllArtistList
-            loading={loading}
-            error={error}
-            getAllPosts={getAllPosts}
-            openEditPostDialog={openEditPostDialog}
-            dispatchDeletePostAction={dispatchDeletePostAction}
-          />
+          <AllArtistList loading={loading} error={error} artists={artists} />
 
           {/* <AllPostsDialog
             postDialog={postDialog}
@@ -80,19 +65,21 @@ export function HomePage({
 }
 
 HomePage.propTypes = {
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
+  allArtists: PropTypes.func,
+  artists: PropTypes.array,
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
+  artists: makeSelectGetAllArtists(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
+    allArtists: () => dispatch(getAllArtists()),
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
