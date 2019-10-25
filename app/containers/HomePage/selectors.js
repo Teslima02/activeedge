@@ -37,6 +37,18 @@ const makeSelectGetArtistAlbums = () =>
     subState => subState.getArtistAlbums,
   );
 
+const makeSelectGetAlbumId = () =>
+  createSelector(
+    selectHome,
+    subState => subState.albumId,
+  );
+
+const makeSelectGetAlbumPhoto = () =>
+  createSelector(
+    selectHome,
+    subState => subState.getAlbumPhoto,
+  );
+
 export {
   selectHome,
   makeSelectUsername,
@@ -44,4 +56,6 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectGetArtistAlbums,
+  makeSelectGetAlbumPhoto,
+  makeSelectGetAlbumId,
 };

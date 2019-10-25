@@ -23,7 +23,7 @@ import {
   Box,
   makeStyles,
 } from '@material-ui/core';
-import { getAllArtists, getArtistAlbums } from './actions';
+import { getAllArtists, getArtistAlbums, getAlbumPhoto } from './actions';
 import {
   makeSelectGetAllArtists,
   makeSelectLoading,
@@ -35,7 +35,6 @@ import reducer from './reducer';
 import saga from './saga';
 import { AllArtistList } from './components/AllArtistList';
 import { ArtistAlbums } from './components/ArtistAlbums';
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -82,6 +81,8 @@ export function HomePage({
   error,
   artistAlbumsAction,
   artistAlbums,
+  albumIdAction,
+  history,
 }) {
   // const classes = useStyles();
   useInjectReducer({ key, reducer });
@@ -135,6 +136,8 @@ export function HomePage({
                 loading={loading}
                 error={error}
                 artistAlbums={artistAlbums}
+                albumIdAction={albumIdAction}
+                history={history}
               />
             </TabPanel>
             <TabPanel value={value} index={2}>
@@ -148,6 +151,8 @@ export function HomePage({
 }
 
 HomePage.propTypes = {
+  history: PropTypes.object,
+  albumIdAction: PropTypes.func,
   artistAlbumsAction: PropTypes.func,
   artists: PropTypes.array,
   allArtists: PropTypes.func,
@@ -165,6 +170,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    albumIdAction: evt => dispatch(getAlbumPhoto(evt)),
     artistAlbumsAction: () => dispatch(getArtistAlbums()),
     allArtists: () => dispatch(getAllArtists()),
   };

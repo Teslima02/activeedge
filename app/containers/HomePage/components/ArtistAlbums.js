@@ -16,6 +16,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { makeStyles, FormControlLabel, Icon, List } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 // import AddButton from './AddButton';
+import { withRouter } from 'react-router';
 import reducer from '../reducer';
 import saga from '../saga';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -39,6 +40,8 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 // }));
 
 export function ArtistAlbums({
+  history,
+  albumIdAction,
   artistAlbums,
   loading,
   error,
@@ -48,6 +51,10 @@ export function ArtistAlbums({
   // const classes = useStyles();
   useInjectReducer({ key: 'allPosts', reducer });
   useInjectSaga({ key: 'allPosts', saga });
+
+  const handleClick = link => {
+    history.push(link);
+  };
 
   const columns = [
     {
@@ -91,18 +98,20 @@ export function ArtistAlbums({
         filter: true,
         sort: false,
         customBodyRender: value => {
-          const Post = artistAlbums.find(post => value === post.id);
+          const album = artistAlbums.find(post => value === post.id);
 
           if (value === '') {
             return '';
           }
           return (
             <FormControlLabel
-              label="Edit"
-              control={<Icon>create</Icon>}
+              label="View"
+              control={<Icon>visibility</Icon>}
               onClick={evt => {
                 evt.stopPropagation();
-                openEditPostDialog(Post);
+                albumIdAction(album.id);
+                // handleClick(`/album/photos/${album.id}`);
+                handleClick('/album/photos');
               }}
             />
           );
@@ -134,14 +143,15 @@ export function ArtistAlbums({
 }
 
 ArtistAlbums.propTypes = {
-  artistAlbums: PropTypes.array.isRequired,
+  history: PropTypes.object,
+  albumIdAction: PropTypes.func,
+  artistAlbums: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   openEditPostDialog: PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-});
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -154,7 +164,9 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(
-  withConnect,
-  memo,
-)(ArtistAlbums);
+export default withRouter(
+  compose(
+    withConnect,
+    memo,
+  )(ArtistAlbums),
+);

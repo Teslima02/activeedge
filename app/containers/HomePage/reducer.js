@@ -6,12 +6,17 @@ import {
   GET_ALL_ARTIST_ALBUMS,
   GET_ALL_ARTIST_ALBUMS_SUCCESS,
   GET_ALL_ARTIST_ALBUMS_ERROR,
+  GET_ALBUM_PHOTO,
+  GET_ALBUM_PHOTO_SUCCESS,
+  GET_ALBUM_PHOTO_ERROR,
 } from './constants';
 
 // The initial state of the App
 export const initialState = {
   getAllArtists: [],
   artistAlbums: [],
+  albumId: {},
+  getAlbumPhoto: [],
   loading: false,
   error: false,
 };
@@ -58,6 +63,29 @@ const homeReducer = (state = initialState, action) =>
         };
       }
       case GET_ALL_ARTIST_ALBUMS_ERROR: {
+        return {
+          ...state,
+          loading: false,
+          error: false,
+        };
+      }
+      case GET_ALBUM_PHOTO: {
+        return {
+          ...state,
+          loading: true,
+          error: false,
+          albumId: action.payload,
+        };
+      }
+      case GET_ALBUM_PHOTO_SUCCESS: {
+        return {
+          ...state,
+          loading: false,
+          error: false,
+          getAlbumPhoto: action.payload,
+        };
+      }
+      case GET_ALBUM_PHOTO_ERROR: {
         return {
           ...state,
           loading: false,

@@ -16,9 +16,11 @@ import HomePage from '../HomePage/Loadable';
 import FeaturePage from '../FeaturePage/Loadable';
 import NotFoundPage from '../NotFoundPage/Loadable';
 import AllPosts from '../AllPosts/Loadable';
+import AlbumPhoto from '../AlbumPhotos/Loadable';
 
 import Layout1 from '../../components/layouts/layout1/Layout1';
-import Layout2 from '../../components/layouts/layout2/Layout2';;
+import Layout2 from '../../components/layouts/layout2/Layout2';
+;
 
 export default function App() {
   return (
@@ -38,6 +40,7 @@ export default function App() {
 
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route path="/album/photos" component={AlbumPhoto} />
             <Route path="/posts" component={AllPosts} />
             <Route path="/features" component={FeaturePage} />
             <Route path="" component={NotFoundPage} />
